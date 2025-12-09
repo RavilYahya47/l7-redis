@@ -1,0 +1,205 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-insert-categories
+      author: course-team
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Electronics" }
+              - column: { name: slug, value: "electronics" }
+              - column: { name: description, value: "Electronic devices and gadgets" }
+              - column: { name: display_order, valueNumeric: 1 }
+
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Books" }
+              - column: { name: slug, value: "books" }
+              - column: { name: description, value: "Books and reading materials" }
+              - column: { name: display_order, valueNumeric: 2 }
+
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Clothing" }
+              - column: { name: slug, value: "clothing" }
+              - column: { name: description, value: "Apparel and fashion items" }
+              - column: { name: display_order, valueNumeric: 3 }
+
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Home & Garden" }
+              - column: { name: slug, value: "home-garden" }
+              - column: { name: description, value: "Home improvement and garden supplies" }
+              - column: { name: display_order, valueNumeric: 4 }
+
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Sports & Outdoors" }
+              - column: { name: slug, value: "sports-outdoors" }
+              - column: { name: description, value: "Sports equipment and outdoor gear" }
+              - column: { name: display_order, valueNumeric: 5 }
+
+  - changeSet:
+      id: 002-insert-products
+      author: course-team
+      changes:
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "ELEC-001" }
+              - column: { name: name, value: "Wireless Bluetooth Headphones" }
+              - column: { name: description, value: "Premium noise-canceling wireless headphones with 30hr battery life" }
+              - column: { name: price, valueNumeric: 149.99 }
+              - column: { name: stock_quantity, valueNumeric: 50 }
+              - column: { name: category_id, valueNumeric: 1 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "ELEC-002" }
+              - column: { name: name, value: "4K Smart TV 55 inch" }
+              - column: { name: description, value: "Ultra HD Smart TV with HDR support and built-in streaming apps" }
+              - column: { name: price, valueNumeric: 599.99 }
+              - column: { name: stock_quantity, valueNumeric: 25 }
+              - column: { name: category_id, valueNumeric: 1 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "BOOK-001" }
+              - column: { name: name, value: "Clean Code" }
+              - column: { name: description, value: "A Handbook of Agile Software Craftsmanship by Robert C. Martin" }
+              - column: { name: price, valueNumeric: 44.99 }
+              - column: { name: stock_quantity, valueNumeric: 100 }
+              - column: { name: category_id, valueNumeric: 2 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "BOOK-002" }
+              - column: { name: name, value: "Designing Data-Intensive Applications" }
+              - column: { name: description, value: "The Big Ideas Behind Reliable, Scalable, and Maintainable Systems" }
+              - column: { name: price, valueNumeric: 54.99 }
+              - column: { name: stock_quantity, valueNumeric: 75 }
+              - column: { name: category_id, valueNumeric: 2 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "CLOTH-001" }
+              - column: { name: name, value: "Men's Cotton T-Shirt" }
+              - column: { name: description, value: "Comfortable 100% cotton t-shirt, available in multiple colors" }
+              - column: { name: price, valueNumeric: 19.99 }
+              - column: { name: stock_quantity, valueNumeric: 200 }
+              - column: { name: category_id, valueNumeric: 3 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "CLOTH-002" }
+              - column: { name: name, value: "Women's Denim Jeans" }
+              - column: { name: description, value: "Classic fit denim jeans with stretch fabric" }
+              - column: { name: price, valueNumeric: 59.99 }
+              - column: { name: stock_quantity, valueNumeric: 150 }
+              - column: { name: category_id, valueNumeric: 3 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "HOME-001" }
+              - column: { name: name, value: "Robot Vacuum Cleaner" }
+              - column: { name: description, value: "Smart robot vacuum with mapping and app control" }
+              - column: { name: price, valueNumeric: 299.99 }
+              - column: { name: stock_quantity, valueNumeric: 30 }
+              - column: { name: category_id, valueNumeric: 4 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "SPORT-001" }
+              - column: { name: name, value: "Yoga Mat Premium" }
+              - column: { name: description, value: "Non-slip yoga mat with carrying strap" }
+              - column: { name: price, valueNumeric: 34.99 }
+              - column: { name: stock_quantity, valueNumeric: 100 }
+              - column: { name: category_id, valueNumeric: 5 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "SPORT-002" }
+              - column: { name: name, value: "Adjustable Dumbbells Set" }
+              - column: { name: description, value: "Space-saving adjustable dumbbell set, 5-52.5 lbs" }
+              - column: { name: price, valueNumeric: 349.99 }
+              - column: { name: stock_quantity, valueNumeric: 20 }
+              - column: { name: category_id, valueNumeric: 5 }
+              - column: { name: status, value: "ACTIVE" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+        - insert:
+            tableName: products
+            columns:
+              - column: { name: sku, value: "ELEC-003" }
+              - column: { name: name, value: "Mechanical Gaming Keyboard" }
+              - column: { name: description, value: "RGB backlit mechanical keyboard with Cherry MX switches" }
+              - column: { name: price, valueNumeric: 129.99 }
+              - column: { name: stock_quantity, valueNumeric: 0 }
+              - column: { name: category_id, valueNumeric: 1 }
+              - column: { name: status, value: "OUT_OF_STOCK" }
+              - column: { name: view_count, valueNumeric: 0 }
+
+  - changeSet:
+      id: 002-insert-users
+      author: course-team
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: username, value: "admin" }
+              - column: { name: email, value: "admin@example.com" }
+              - column: { name: password_hash, value: "$2a$10$dummyhash" }
+              - column: { name: first_name, value: "Admin" }
+              - column: { name: last_name, value: "User" }
+              - column: { name: role, value: "ADMIN" }
+              - column: { name: status, value: "ACTIVE" }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: username, value: "john_doe" }
+              - column: { name: email, value: "john@example.com" }
+              - column: { name: password_hash, value: "$2a$10$dummyhash" }
+              - column: { name: first_name, value: "John" }
+              - column: { name: last_name, value: "Doe" }
+              - column: { name: role, value: "CUSTOMER" }
+              - column: { name: status, value: "ACTIVE" }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: username, value: "jane_smith" }
+              - column: { name: email, value: "jane@example.com" }
+              - column: { name: password_hash, value: "$2a$10$dummyhash" }
+              - column: { name: first_name, value: "Jane" }
+              - column: { name: last_name, value: "Smith" }
+              - column: { name: role, value: "CUSTOMER" }
+              - column: { name: status, value: "ACTIVE" }

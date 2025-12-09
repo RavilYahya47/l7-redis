@@ -1,0 +1,729 @@
+{
+  "info": {
+    "name": "Redis Caching Patterns API",
+    "description": "Comprehensive API collection for L7 Redis Caching Patterns microservice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product by SKU",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/sku/PROD-001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "sku", "PROD-001"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products?page=0&size=10&sort=name,asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sort",
+                  "value": "name,asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/search?keyword=laptop&page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "laptop"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Most Viewed Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/most-viewed?limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "most-viewed"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"PROD-001\",\n  \"name\": \"Premium Laptop\",\n  \"description\": \"High-performance laptop with 16GB RAM\",\n  \"price\": 1299.99,\n  \"stockQuantity\": 50,\n  \"categoryId\": 1,\n  \"status\": \"ACTIVE\",\n  \"imageUrl\": \"https://example.com/images/laptop.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Premium Laptop - Updated\",\n  \"description\": \"High-performance laptop with 32GB RAM\",\n  \"price\": 1499.99,\n  \"stockQuantity\": 45,\n  \"categoryId\": 1,\n  \"status\": \"ACTIVE\",\n  \"imageUrl\": \"https://example.com/images/laptop-new.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Increment View Count",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/view",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1", "view"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clear Product Cache",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/cache/clear",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "cache", "clear"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rate Limiting",
+      "item": [
+        {
+          "name": "Test Fixed Window Rate Limit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rate-limit/fixed-window/user123?maxRequests=10&windowSeconds=60",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rate-limit", "fixed-window", "user123"],
+              "query": [
+                {
+                  "key": "maxRequests",
+                  "value": "10"
+                },
+                {
+                  "key": "windowSeconds",
+                  "value": "60"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Test Sliding Window Rate Limit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rate-limit/sliding-window/user123?maxRequests=10&windowSeconds=60",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rate-limit", "sliding-window", "user123"],
+              "query": [
+                {
+                  "key": "maxRequests",
+                  "value": "10"
+                },
+                {
+                  "key": "windowSeconds",
+                  "value": "60"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Test Token Bucket Rate Limit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rate-limit/token-bucket/user123?capacity=10&refillRate=1.0&tokensRequired=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rate-limit", "token-bucket", "user123"],
+              "query": [
+                {
+                  "key": "capacity",
+                  "value": "10"
+                },
+                {
+                  "key": "refillRate",
+                  "value": "1.0"
+                },
+                {
+                  "key": "tokensRequired",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Rate Limit",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/rate-limit/reset/user123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rate-limit", "reset", "user123"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Leaderboard",
+      "item": [
+        {
+          "name": "Set Score",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/score?playerId=player123&score=1000",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "score"],
+              "query": [
+                {
+                  "key": "playerId",
+                  "value": "player123"
+                },
+                {
+                  "key": "score",
+                  "value": "1000"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Increment Score",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/increment?playerId=player123&delta=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "increment"],
+              "query": [
+                {
+                  "key": "playerId",
+                  "value": "player123"
+                },
+                {
+                  "key": "delta",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Score",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/score/player123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "score", "player123"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rank",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/rank/player123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "rank", "player123"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Top Players",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/top?count=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "top"],
+              "query": [
+                {
+                  "key": "count",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Players by Rank Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/range?startRank=10&endRank=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "range"],
+              "query": [
+                {
+                  "key": "startRank",
+                  "value": "10"
+                },
+                {
+                  "key": "endRank",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Players Around Player",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/around/player123?range=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "around", "player123"],
+              "query": [
+                {
+                  "key": "range",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Player",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1/player/player123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1", "player", "player123"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clear Leaderboard",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leaderboard/game1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "leaderboard", "game1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "Create Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cartItems\": [\"item1\", \"item2\"],\n  \"preferences\": {\n    \"theme\": \"dark\",\n    \"language\": \"en\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions?userId=123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "123"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions/session-uuid-123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions", "session-uuid-123"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set Attribute",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\"dark\""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions/session-uuid-123/attributes/theme",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions", "session-uuid-123", "attributes", "theme"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Attribute",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions/session-uuid-123/attributes/theme",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions", "session-uuid-123", "attributes", "theme"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalidate Session",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions/session-uuid-123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions", "session-uuid-123"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Active Sessions for User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions/user/123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions", "user", "123"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalidate All User Sessions",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sessions/user/123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sessions", "user", "123"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Distributed Locks",
+      "item": [
+        {
+          "name": "Execute with Lock",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locks/inventory-update/execute?waitTime=5&leaseTime=10&timeUnit=SECONDS",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "locks", "inventory-update", "execute"],
+              "query": [
+                {
+                  "key": "waitTime",
+                  "value": "5"
+                },
+                {
+                  "key": "leaseTime",
+                  "value": "10"
+                },
+                {
+                  "key": "timeUnit",
+                  "value": "SECONDS"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Try Lock",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locks/inventory-update/try?leaseTime=10&timeUnit=SECONDS",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "locks", "inventory-update", "try"],
+              "query": [
+                {
+                  "key": "leaseTime",
+                  "value": "10"
+                },
+                {
+                  "key": "timeUnit",
+                  "value": "SECONDS"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unlock",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locks/inventory-update/unlock",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "locks", "inventory-update", "unlock"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check Lock Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/locks/inventory-update/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "locks", "inventory-update", "status"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Actuator",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/info",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "info"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/metrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "metrics"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Prometheus Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/prometheus",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "prometheus"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Caches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/caches",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "caches"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

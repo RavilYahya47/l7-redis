@@ -1,0 +1,95 @@
+services:
+  postgres:
+    image: public.ecr.aws/docker/library/postgres:16-alpine
+    container_name: redis-patterns-postgres
+    environment:
+      POSTGRES_DB: redis_patterns_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d redis_patterns_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - redis-patterns-network
+
+  redis:
+    image: public.ecr.aws/docker/library/redis:7-alpine
+    container_name: redis-patterns-redis
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - redis-patterns-network
+
+  redis-sentinel:
+    image: public.ecr.aws/docker/library/redis:7-alpine
+    container_name: redis-patterns-sentinel
+    command: |
+      sh -c "cat > /tmp/sentinel.conf << 'EOFCONF'
+      sentinel monitor mymaster redis-patterns-redis 6379 1
+      sentinel down-after-milliseconds mymaster 5000
+      sentinel parallel-syncs mymaster 1
+      sentinel failover-timeout mymaster 10000
+      sentinel resolve-hostnames yes
+      sentinel announce-hostnames yes
+      EOFCONF
+      until redis-cli -h redis ping; do echo 'Waiting for Redis...'; sleep 1; done
+      redis-sentinel /tmp/sentinel.conf"
+    ports:
+      - "26379:26379"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - redis-patterns-network
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    container_name: redis-patterns-insight
+    ports:
+      - "8001:5540"
+    volumes:
+      - redisinsight_data:/data
+    networks:
+      - redis-patterns-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: redis-patterns-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - redis-patterns-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  redisinsight_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  redis-patterns-network:
+    driver: bridge

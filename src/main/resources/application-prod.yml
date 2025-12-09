@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+
+  jpa:
+    show-sql: false
+
+  data:
+    redis:
+      timeout: 1000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+
+  cache:
+    redis:
+      time-to-live: 300000  # 5 minutes in production
+
+logging:
+  level:
+    root: INFO
+    com.course.lesson7.redis: INFO
+    org.springframework.cache: INFO
+    org.springframework.data.redis: WARN
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
